@@ -1,0 +1,138 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+const owner = "Fryrvo-Stuff";
+const repo = "Rhythmic-Gymnastics-Thailand-Championships-2026";
+const path = "src/images";
+
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+// Pull token from environment variables
+const token = import.meta.env.PUBLIC_GITHUB_TOKEN;
+
+let imageUrls: string[] = [];
+
+try {
+  const response = await fetch(apiUrl, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      "User-Agent": "Astro-App",
+    },
+  });
+
+  if (response.ok) {
+    const files = await response.json();
+    
+    imageUrls = files
+      .filter((file: any) => file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
+      .map((file: any) => file.download_url);
+  } else {
+    console.error("Failed to fetch GitHub contents:", response.status, response.statusText);
+  }
+} catch (error) {
+  console.error("Error connecting to GitHub API:", error);
+}
+---
+
+<Layout
+  title="Astro Photo Grid"
+  description="A minimal, single-page photo gallery for Astro."
+>
+  <section class="justified-gallery" id="photoswipe">
+    {
+      imageUrls.map((url, index) => (
+        <a
+          href={url}
+          target="_blank"
+          data-fancybox="gallery"
+        >
+          <img
+            src={url}
+            alt="Rhythmic Gymnastics Photo"
+            height="400"
+            loading={index < 20 ? "eager" : "lazy"}
+          />
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+<script>
+  import { Fancybox } from "@fancyapps/ui";
+
+  const initFancybox = () => {
+    Fancybox.bind("[data-fancybox]", {
+      theme: "auto",
+      mainStyle: {
+        "--f-button-width": "44px",
+        "--f-button-height": "44px",
+        "--f-button-border-radius": "50%",
+        "--f-toolbar-padding": "16px",
+      },
+      Carousel: {
+        Arrows: false,
+        Toolbar: {
+          display: {
+            left: [],
+            middle: [],
+            right: ["close"],
+          },
+        },
+        transition: "slide",
+      },
+    });
+  };
+
+  initFancybox();
+  document.addEventListener("astro:page-load", initFancybox);
+</script>
+
+<style>
+  .justified-gallery {
+    --padding: max(2.5vw, 12px);
+    --space: max(2.5vw, 12px);
+    --min-height: clamp(200px, 20vw, 400px);
+
+    padding: var(--padding);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+
+    a {
+      flex-grow: 1;
+      flex-basis: 300px;
+      height: var(--min-height);
+      overflow: hidden;
+      opacity: 1;
+      transition: all 0.05s ease-in-out;
+    }
+
+    a img {
+      display: block;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--outline);
+      outline-offset: 2px;
+      transform: scale(1.05);
+      z-index: 1;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    a.hidden {
+      transition: opacity 0.4s ease-in-out;
+      opacity: 0;
+    }
+
+    &::after {
+      content: " ";
+      flex-grow: 1000000000;
+    }
+  }
+</style>

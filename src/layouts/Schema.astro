@@ -1,0 +1,23 @@
+---
+export interface Props {
+  item?: Record<string, any>;
+}
+
+const { item } = Astro.props;
+
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FryrvoStudio",
+  "url": "https://cdn.fryrvo.com",
+  "publisher": {
+    "@type": "Organization",
+    "name": "FryrvoStudio, Inc",
+    "logo": "https://cdn.fryrvo.com/assets/fryrvo/Logo_bg.png"
+  }
+};
+
+const schemaData = item ?? defaultSchema;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />

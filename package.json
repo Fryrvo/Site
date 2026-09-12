@@ -1,0 +1,30 @@
+{
+  "name": "fryrvo-site",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@alpinejs/collapse": "^3.12.3",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/tailwind": "^6.0.0",
+    "@fancyapps/ui": "^5.0.0",
+    "@fontsource/inter": "^5.0.8",
+    "@types/alpinejs": "^3.7.2",
+    "alpinejs": "^3.12.3",
+    "astro": "^5.0.0",
+    "astro-compress": "^2.3.0",
+    "prettier": "^3.0.2",
+    "prettier-plugin-astro": "^0.14.0",
+    "prettier-plugin-tailwindcss": "^0.5.3",
+    "smartypants": "^0.2.2",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.0"
+  }
+}
