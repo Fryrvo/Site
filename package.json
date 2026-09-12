@@ -12,6 +12,7 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.12.3",
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^6.0.0",
     "@fancyapps/ui": "^5.0.0",
