@@ -9,7 +9,7 @@ const path = "src/images";
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
 // Pull token from environment variables
-const token = import.meta.env.PUBLIC_GITHUB_TOKEN;
+const token = import.meta.env.GITHUB_TOKEN;
 
 let imageUrls: string[] = [];
 
