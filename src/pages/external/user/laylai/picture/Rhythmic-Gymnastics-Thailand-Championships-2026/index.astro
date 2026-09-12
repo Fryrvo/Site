@@ -8,6 +8,27 @@ const imagePath = "src/images";
 
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
 const token = import.meta.env.GITHUB_TOKEN;
+const secret = import.meta.env.IMAGE_SECRET_KEY || "";
+
+
+
+async function generateSignature(path: string, secretKey: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secretKey);
+  const msgData = encoder.encode(path);
+
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    keyData,
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const signatureBuffer = await crypto.subtle.sign("HMAC", cryptoKey, msgData);
+  const hashArray = Array.from(new Uint8Array(signatureBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 let imageUrls: string[] = [];
 
@@ -21,15 +42,45 @@ try {
 
   if (response.ok) {
     const files = await response.json();
-
-    imageUrls = files
-      .filter((file: any) => file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
-      .map((file: any) => `/api/image/${owner}/${repo}/${imagePath}/${file.name}`);
+    
+    // Generate signed URLs for each valid image file
+    for (const file of files) {
+      if (file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name)) {
+        const fullFilePath = `${imagePath}/${file.name}`;
+        const sig = await generateSignature(fullFilePath, secret);
+        imageUrls.push(`/api/image/${owner}/${repo}/${fullFilePath}?sig=${sig}`);
+      }
+    }
   }
 } catch (error) {
   console.error("Error connecting to GitHub API:", error);
 }
 ---
+
+<Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
+  <section class="justified-gallery" id="photoswipe">
+    {
+      imageUrls.map((url, index) => (
+        <a href={url} target="_blank" data-fancybox="gallery">
+          <img
+            src={url}
+            alt="Gallery Photo"
+            height="400"
+            loading={index < 20 ? "eager" : "lazy"}
+          />
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+
+
+
+
+
+
+
 
 <Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
   <section class="justified-gallery" id="photoswipe">
