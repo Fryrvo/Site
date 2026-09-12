@@ -4,7 +4,6 @@ import '@fontsource/inter/latin-500.css';
 import { ViewTransitions } from 'astro:transitions';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
-import Schema from './Schema.astro';
 
 interface Props {
   description: string;
@@ -13,6 +12,10 @@ interface Props {
 
 const { description, title } = Astro.props;
 ---
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en" x-cloak x-data :class="{ 'dark': $store.theme.isDark }">
@@ -71,6 +74,5 @@ const { description, title } = Astro.props;
       window.Alpine = Alpine;
       Alpine.start();
     </script>
-  </Schema>
   </body>
 </html>

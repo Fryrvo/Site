@@ -1,0 +1,66 @@
+---
+
+import Layout from '~/layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const { username } = Astro.params;
+
+
+if (!username) {
+  return Astro.redirect('/404');
+}
+
+const targetDir = path.join(process.cwd(), 'src', 'pages', 'external', 'user', username, 'picture');
+
+let albums = [];
+
+try {
+  if (fs.existsSync(targetDir)) {
+    const entries = fs.readdirSync(targetDir, { withFileTypes: true });
+    albums = entries
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => ({ name: entry.name }));
+  } else {
+
+    return Astro.redirect('/404');
+  }
+} catch (error) {
+  console.error('Error reading local user picture directory:', error);
+  return Astro.redirect('/404');
+}
+---
+
+<Layout description={`Photo albums dashboard for ${username}`} title={`Gallery · ${username}`}>
+  <header class="py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
+      <h1 class="text-4xl font-medium tracking-tight sm:text-5xl lg:text-6xl capitalize">{username}'s Gallery</h1>
+      <p class="text-primary-950/70 dark:text-primary-200/70 mt-4 text-lg sm:text-xl">um index i guess</p>
+    </div>
+  </header>
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div class="flex flex-col gap-16">
+        <h2 class="text-3xl font-medium tracking-tight sm:text-4xl">Albums</h2>
+        {
+          albums.length > 0 ? (
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {albums.map((album) => (
+                <a
+                  href={`/external/user/${username}/picture/${album.name}`}
+                  class="bg-primary-500/5 hover:bg-primary-500/10 dark:bg-primary-400/5 dark:hover:bg-primary-400/10 flex flex-col gap-3 rounded-md p-6 transition-colors"
+                >
+                  <h3 class="text-xl font-medium sm:text-2xl capitalize">{album.name.replace(/-/g, ' ')}</h3>
+                  <p class="text-primary-950/70 dark:text-primary-200/70 text-base">View album photos &rarr;</p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-base text-primary-950/70 dark:text-primary-200/70">No albums found for this user.</p>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
