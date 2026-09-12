@@ -2,12 +2,17 @@
 import About from '../components/home/About.astro';
 import Hero from '../components/home/Hero.astro';
 import Layout from '../layouts/Layout.astro';
+import Schema from '../layouts/Schema.astro';
 ---
 
 <Layout
   description="FryrvoStudio Home page"
   title="FryrvoStudio, Inc · Home"
 >
+  <Fragment slot="head">
+    <Schema />
+  </Fragment>
+
   <Hero />
   <About />
 </Layout>
