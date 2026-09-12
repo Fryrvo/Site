@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 
 let rawReleases = [];
 try {
-  // Use relative globbing path so Vite resolves the files reliably in Astro v5
+
   rawReleases = await Astro.glob('../../components/music/*.{md,mdx}');
 } catch (e) {
   rawReleases = [];
@@ -11,11 +11,11 @@ try {
 
 const releases = rawReleases
   .map((r) => {
-    // Extract file name without extension to construct a clean fallback slug
+   
     const fileName = r.file.split('/').pop()?.replace(/\.(md|mdx)$/, '');
     const data = r.frontmatter || r.data || {};
     
-    // Determine the path to route to your [...slug].astro page
+   
     const slug = data.slug || fileName;
     const href = r.url || `/music/${slug}`;
 

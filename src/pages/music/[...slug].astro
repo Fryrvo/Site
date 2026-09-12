@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
-  const posts = await Astro.glob('/src/components/music/*.{md,mdx}');
+  const posts = await Astro.glob('../../components/music/*.{md,mdx}');
 
   return posts.map((post) => {
-    // Extract filename without extension to use as URL slug
     const slug = post.file.split('/').pop()?.replace(/\.(md|mdx)$/, '');
     return {
       params: { slug },
@@ -15,14 +16,13 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = post;
-const d = post.frontmatter || {};
+const Content = post?.default;
+const d = post?.frontmatter || {};
 ---
 
 <Layout title={d.title || 'Release'} description={d.description || ''}>
   <article class="py-12 sm:py-16">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <!-- Back link -->
       <a
         href="/music/"
         class="text-primary-950/70 dark:text-primary-200/70 hover:text-primary-950 dark:hover:text-primary-200 mb-8 inline-flex items-center gap-2 text-sm font-medium"
@@ -30,7 +30,6 @@ const d = post.frontmatter || {};
         &larr; Back to Releases
       </a>
 
-      <!-- Release Header (Album Art + Info) -->
       <div class="flex flex-col gap-8 sm:flex-row sm:items-center">
         {
           (d.cover || d.image) && (
@@ -42,7 +41,7 @@ const d = post.frontmatter || {};
           )
         }
 
-        <div class="flex flex-col">
+<div class="flex flex-col">
           {
             d.type && (
               <span class="text-primary-950/60 dark:text-primary-200/60 text-xs font-semibold uppercase tracking-wider">
@@ -60,13 +59,60 @@ const d = post.frontmatter || {};
               </p>
             )
           }
+          {
+            d.quote && (
+              <blockquote class="text-primary-950/80 dark:text-primary-200/80 mt-3 border-l-2 border-primary-500 pl-3 text-sm italic">
+                "{d.quote}"
+              </blockquote>
+            )
+          }
+          
+          { }
+          <div class="mt-6 flex flex-wrap gap-3">
+            {
+              d.spotify && (
+                <a
+                  href={d.spotify}
+                  target="_blank"
+                  rel="noopener"
+                  class="border-primary-900/10 dark:border-primary-300/10 hover:bg-primary-500/10 dark:hover:bg-primary-400/10 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition"
+                >
+                  Spotify
+                </a>
+              )
+            }
+            {
+              d.apple && (
+                <a
+                  href={d.apple}
+                  target="_blank"
+                  rel="noopener"
+                  class="border-primary-900/10 dark:border-primary-300/10 hover:bg-primary-500/10 dark:hover:bg-primary-400/10 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition"
+                >
+                  Apple Music
+                </a>
+              )
+            }
+            {
+              d.youtube && (
+                <a
+                  href={d.youtube}
+                  target="_blank"
+                  rel="noopener"
+                  class="border-primary-900/10 dark:border-primary-300/10 hover:bg-primary-500/10 dark:hover:bg-primary-400/10 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition"
+                >
+                  YouTube
+                </a>
+              )
+            }
+          </div>
         </div>
       </div>
-
-      <!-- Markdown Content / Player / Description -->
       <div class="prose dark:prose-invert mt-12 max-w-none border-t border-primary-900/10 dark:border-primary-300/10 pt-8">
-        <Content />
+        {Content ? <Content /> : <p>Content not found.</p>}
       </div>
+
+
     </div>
   </article>
 </Layout>
