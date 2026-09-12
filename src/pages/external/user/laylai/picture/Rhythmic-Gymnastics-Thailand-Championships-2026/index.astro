@@ -4,11 +4,9 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const owner = "Fryrvo-Stuff";
 const repo = "Rhythmic-Gymnastics-Thailand-Championships-2026";
-const path = "src/images";
+const imagePath = "src/images";
 
-const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-
-// Pull token from environment variables
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
 const token = import.meta.env.GITHUB_TOKEN;
 
 let imageUrls: string[] = [];
@@ -23,33 +21,24 @@ try {
 
   if (response.ok) {
     const files = await response.json();
-    
+
     imageUrls = files
       .filter((file: any) => file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name))
-      .map((file: any) => file.download_url);
-  } else {
-    console.error("Failed to fetch GitHub contents:", response.status, response.statusText);
+      .map((file: any) => `/api/image/${owner}/${repo}/${imagePath}/${file.name}`);
   }
 } catch (error) {
   console.error("Error connecting to GitHub API:", error);
 }
 ---
 
-<Layout
-  title="Astro Photo Grid"
-  description="A minimal, single-page photo gallery for Astro."
->
+<Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
   <section class="justified-gallery" id="photoswipe">
     {
       imageUrls.map((url, index) => (
-        <a
-          href={url}
-          target="_blank"
-          data-fancybox="gallery"
-        >
+        <a href={url} target="_blank" data-fancybox="gallery">
           <img
             src={url}
-            alt="Rhythmic Gymnastics Photo"
+            alt="Gallery Photo"
             height="400"
             loading={index < 20 ? "eager" : "lazy"}
           />
