@@ -43,7 +43,7 @@ try {
   if (response.ok) {
     const files = await response.json();
     
-    // Generate signed URLs for each valid image file
+
     for (const file of files) {
       if (file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name)) {
         const fullFilePath = `${imagePath}/${file.name}`;
@@ -57,7 +57,7 @@ try {
 }
 ---
 
-<Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
+<Layout title="Fryrvo Photo Gallery" description="laylai's Photo Gallery">
   <section class="justified-gallery" id="photoswipe">
     {
       imageUrls.map((url, index) => (
