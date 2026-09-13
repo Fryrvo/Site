@@ -101,6 +101,7 @@ const bottomLinks = [
         />
 
         <script>
+
           let clickCount = 0;
           let lastClickTime = 0;
 
@@ -120,7 +121,158 @@ const bottomLinks = [
               }
             });
           }
+
+
+
+
+
+const secretWord = "stage";
+          let typedBuffer = "";
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key.length > 1) return;
+
+            typedBuffer += e.key.toLowerCase();
+            
+            if (typedBuffer.length > secretWord.length) {
+              typedBuffer = typedBuffer.slice(-secretWord.length);
+            }
+
+            if (typedBuffer === secretWord) {
+              document.body.style.transition = 'transform 1s ease';
+              document.body.style.transform = 'rotate(360deg)';
+              setTimeout(() => {
+                document.body.style.transform = 'none';
+              }, 1000);
+              typedBuffer = "";
+            }
+          });
+
+(() => {
+  const pingWord = "ping";
+  let pingBuf = "";
+
+  const pingToast = document.createElement("div");
+  pingToast.textContent = "Pong!";
+  pingToast.style.position = "fixed";
+  pingToast.style.bottom = "-50px";
+  pingToast.style.left = "50%";
+  pingToast.style.transform = "translateX(-50%)";
+  pingToast.style.backgroundColor = "rgba(14, 165, 233, 0.9)";
+  pingToast.style.color = "#fff";
+  pingToast.style.padding = "10px 20px";
+  pingToast.style.borderRadius = "9999px";
+  pingToast.style.fontSize = "14px";
+  pingToast.style.fontWeight = "600";
+  pingToast.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+  pingToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  pingToast.style.opacity = "0";
+  pingToast.style.zIndex = "9999";
+  document.body.appendChild(pingToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    pingBuf += char;
+
+    if (pingBuf.length > pingWord.length) {
+      pingBuf = pingBuf.slice(-pingWord.length);
+    }
+
+    if (pingBuf === pingWord) {
+      pingToast.style.bottom = "40px";
+      pingToast.style.opacity = "1";
+      setTimeout(() => {
+        pingToast.style.bottom = "-50px";
+        pingToast.style.opacity = "0";
+      }, 2000);
+      pingBuf = "";
+    }
+  });
+})();
+          (() => {
+  const transWord = "trans";
+  let transBuf = "";
+
+  const transToast = document.createElement("div");
+  transToast.style.position = "fixed";
+  transToast.style.bottom = "-80px";
+  transToast.style.left = "0";
+  transToast.style.width = "100%";
+  transToast.style.textAlign = "center";
+  transToast.style.padding = "16px 0";
+  transToast.style.fontSize = "18px";
+  transToast.style.fontWeight = "800";
+  transToast.style.letterSpacing = "1px";
+  transToast.style.boxShadow = "0 -4px 20px rgba(0, 0, 0, 0.2)";
+  transToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  transToast.style.opacity = "0";
+  transToast.style.zIndex = "9999";
+  document.body.appendChild(transToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    transBuf += char;
+
+    if (transBuf.length > transWord.length) {
+      transBuf = transBuf.slice(-transWord.length);
+    }
+
+    if (transBuf === transWord) {
+      
+      const isHumanRight = Math.random() < 0.7;
+
+      if (isHumanRight) {
+        transToast.textContent = "Fryrvo Love human Right";
+        transToast.style.background = "linear-gradient(90deg, #5BCEFA, #F5A9B8, #FFFFFF, #F5A9B8, #5BCEFA)";
+        transToast.style.color = "#111111";
+        transToast.style.borderTop = "3px solid #5BCEFA";
+        transToast.style.borderBottom = "3px solid #F5A9B8";
+      } else {
+        transToast.textContent = "Cath is non-binary! Now you know for sure";
+        transToast.style.background = "linear-gradient(90deg, #FCF434, #FFFFFF, #9C59D1, #2C2C2C)";
+        transToast.style.color = "#111111";
+        transToast.style.borderTop = "3px solid #FCF434";
+        transToast.style.borderBottom = "3px solid #2C2C2C";
+      }
+        
+      // hey if you are reading this well um don't leak me
+      // anyway no one should hide who they are isn't it?
+      transToast.style.bottom = "0";
+      transToast.style.opacity = "1";
+      setTimeout(() => {
+        transToast.style.bottom = "-80px";
+        transToast.style.opacity = "0";
+      }, 3000);
+      transBuf = "";
+    }
+  });
+})();
+
+
+          const originalTitle = document.title;
+          const awayMessages = [
+            "Hey, come back! 😭",
+            "Did you get distracted by YouTube?",
+            "We miss you over here! 👀",
+            "try type stage "
+          ];
+
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+              const randomMessage = awayMessages[Math.floor(Math.random() * awayMessages.length)];
+              document.title = randomMessage;
+            } else {
+              document.title = originalTitle;
+            }
+          });
         </script>
+
 
         <!-- Social Media Icons tings  -->
         <div class="flex items-center gap-3">
