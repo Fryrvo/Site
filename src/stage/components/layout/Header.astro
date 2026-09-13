@@ -2,29 +2,14 @@
 const links = [
   {
     ref: '01',
-    name: 'Home',
-    href: '/',
+    name: 'Stage Home',
+    href: '/Developer/',
   },
   {
     ref: '02',
-    name: 'Music',
-    href: '/music',
+    name: 'Back to Fryrvo',
+    href: '/',
   },
-  {
-    ref: '04',
-    name: 'Art',
-    href: '/picture',
-  },
-  // {
-  //   ref: '05',
-  //   name: 'Developer',
-  //   href: '/Developer',
-  // },
-  // {
-  //   ref: '06',
-  //   name: 'Contact',
-  //   href: '/contact',
-  // }
 ];
 
 
@@ -44,17 +29,21 @@ const links = [
     <!-- Brand logo -->
     <div class="flex">
       <a
-        href="/"
+        href="/Developer/"
         class="focus-visible:outline-primary-950 dark:group-focus-visible:outline-primary-200 rounded-md focus-visible:outline focus-visible:outline-2"
       >
         <span class="sr-only">fryrvo</span>
+        
         <img
           class="h-8 w-auto"
           width="65"
           height="40"
           :src="$store.theme.isDark ? 'https://cdn.fryrvo.com/assets/fryrvo/Logo_bg.png' : 'https://cdn.fryrvo.com/assets/fryrvo/Logo_bg.png'"
           alt="fryrvo"
-        />
+      
+          />
+
+          <span class="text-xs font-semibold tracking-wider text-amber-500 uppercase">Fryrvo STAGE environment</span>
       </a>
     </div>
 

@@ -1,0 +1,55 @@
+---
+const stats = [
+  {
+    name: 'box',
+    value: 'tings in an box',
+  },
+];
+---
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="grid gap-16 lg:grid-cols-2 lg:gap-24">
+      <img
+        class="mx-auto h-auto w-full max-w-xl rounded-3xl"
+        width="576"
+        height="600"
+        src="https://cdn.fryrvo.com/assets/fryrvo/fryrvo.png"
+        alt="Fryrvo(Cath) icon"
+      />
+      <div class="flex flex-col gap-10">
+
+        <!-- Mission description -->
+        <div class="space-y-5 sm:space-y-12">
+          <h2 class="text-3xl font-medium tracking-tight sm:text-4xl">Hello</h2>
+          <div class="space-y-4">
+            <p class="text-primary-950/70 dark:text-primary-200/70 text-base sm:text-lg">
+              Hello! (again) I'm Cath as I suppose I would like to be called by that name 
+              <br>
+              But you probably know me as Fryrvo well that's was My pen name i mean I prefer to be called Cath though
+            </p>
+            <p class="text-primary-950/70 dark:text-primary-200/70 text-base sm:text-lg">
+              well i don't know what to write more but maybe later then
+            </p>
+            <p class="text-primary-950/70 dark:text-primary-200/70 text-base sm:text-lg">
+              SOON™
+            </p>
+          </div>
+        </div>
+
+        
+        <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {
+            stats.map((stat) => (
+              <div class="border-primary-900/10 dark:border-primary-300/10 rounded-3xl border p-6">
+                <dt class="text-base">{stat.name}</dt>
+                <dd class="text-3xl font-medium tracking-tight">{stat.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </div>
+
+</section>
