@@ -1,0 +1,91 @@
+---
+import Layout from '~/stage/layouts/Layout.astro';
+import { galleries } from "~/galleries.config";
+
+const { username } = Astro.params;
+
+const userGalleries = username ? galleries[username] : undefined;
+
+if (!userGalleries) {
+  return Astro.redirect("/Developer/404");
+}
+
+const albumEntries = Object.entries(userGalleries);
+---
+
+<Layout title={`${username}'s Dashboard`} description={`Photo albums dashboard for ${username}`}>
+  <main class="dashboard-container">
+    <h1>{username}'s Photo Albums</h1>
+    <p class="subtitle">Select an album to view photos</p>
+
+    <div class="grid">
+      {
+        albumEntries.map(([slug, config]) => (
+          <a href={`/Developer/user/${username}/picture/${slug}`} class="card">
+            <h2>{config.title}</h2>
+            <p>{config.description}</p>
+            <span class="action">View Gallery &rarr;</span>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: max(4vw, 24px);
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-transform: capitalize;
+    }
+
+    .subtitle {
+      opacity: 0.7;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    border: 1px solid var(--border, rgba(128, 128, 128, 0.2));
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.2s ease;
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      opacity: 0.7;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .action {
+      font-weight: 600;
+    }
+
+    &:hover {
+      border-color: var(--border, rgba(128, 128, 128, 0.5));
+    }
+  }
+</style>

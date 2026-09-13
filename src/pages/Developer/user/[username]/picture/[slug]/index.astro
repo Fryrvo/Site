@@ -1,16 +1,24 @@
 ---
 import Layout from '~/stage/layouts/Layout.astro';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { galleries } from "~/galleries.config";
 
-const owner = "Fryrvo-Stuff";
-const repo = "Rhythmic-Gymnastics-Thailand-Championships-2026";
-const imagePath = "src/images";
+const { username, slug } = Astro.params;
+
+
+const userGalleries = username ? galleries[username] : undefined;
+const galleryConfig = userGalleries && slug ? userGalleries[slug] : undefined;
+
+
+if (!galleryConfig) {
+  return Astro.redirect("/Developer/404");
+}
+
+const { owner, repo, imagePath, title, description } = galleryConfig;
 
 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
 const token = import.meta.env.GITHUB_TOKEN;
 const secret = import.meta.env.IMAGE_SECRET_KEY || "";
-
-
 
 async function generateSignature(path: string, secretKey: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -42,7 +50,6 @@ try {
 
   if (response.ok) {
     const files = await response.json();
-    
 
     for (const file of files) {
       if (file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name)) {
@@ -57,32 +64,7 @@ try {
 }
 ---
 
-<Layout title="Fryrvo Photo Gallery" description="laylai's Photo Gallery">
-  <section class="justified-gallery" id="photoswipe">
-    {
-      imageUrls.map((url, index) => (
-        <a href={url} target="_blank" data-fancybox="gallery">
-          <img
-            src={url}
-            alt="Gallery Photo"
-            height="400"
-            loading={index < 20 ? "eager" : "lazy"}
-          />
-        </a>
-      ))
-    }
-  </section>
-</Layout>
-
-
-
-
-
-
-
-
-
-<Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
+<Layout title={title} description={description}>
   <section class="justified-gallery" id="photoswipe">
     {
       imageUrls.map((url, index) => (
