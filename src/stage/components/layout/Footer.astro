@@ -192,7 +192,8 @@ const secretWord = "stage";
     }
   });
 })();
-          (() => {
+
+(() => {
   const transWord = "trans";
   let transBuf = "";
 
@@ -271,6 +272,187 @@ const secretWord = "stage";
               document.title = originalTitle;
             }
           });
+
+
+          (() => {
+  let pingBuf = "";
+
+  const pingToast = document.createElement("div");
+  pingToast.textContent = "forgot to change tab isn't it silly you";
+  pingToast.style.position = "fixed";
+  pingToast.style.bottom = "-50px";
+  pingToast.style.left = "50%";
+  pingToast.style.transform = "translateX(-50%)";
+  pingToast.style.backgroundColor = "rgba(14, 165, 233, 0.9)";
+  pingToast.style.color = "#fff";
+  pingToast.style.padding = "10px 20px";
+  pingToast.style.borderRadius = "9999px";
+  pingToast.style.fontSize = "14px";
+  pingToast.style.fontWeight = "600";
+  pingToast.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+  pingToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  pingToast.style.opacity = "0";
+  pingToast.style.zIndex = "9999";
+  document.body.appendChild(pingToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    pingBuf += char;
+
+    if (pingBuf.length > 5) {
+      pingBuf = pingBuf.slice(-5);
+    }
+
+    if (pingBuf.endsWith("google") || pingBuf.endsWith("sudo") || pingBuf.endsWith("git") || pingBuf.endsWith("cd")) {
+      pingToast.style.bottom = "40px";
+      pingToast.style.opacity = "1";
+      setTimeout(() => {
+        pingToast.style.bottom = "-50px";
+        pingToast.style.opacity = "0";
+      }, 2000);
+      pingBuf = "";
+    }
+  });
+})();
+
+(() => {
+  let pingBuf = "";
+
+  const pingToast = document.createElement("div");
+  pingToast.textContent = "boink";
+  pingToast.style.position = "fixed";
+  pingToast.style.bottom = "-50px";
+  pingToast.style.left = "50%";
+  pingToast.style.transform = "translateX(-50%)";
+  pingToast.style.backgroundColor = "rgba(14, 165, 233, 0.9)";
+  pingToast.style.color = "#fff";
+  pingToast.style.padding = "10px 20px";
+  pingToast.style.borderRadius = "9999px";
+  pingToast.style.fontSize = "14px";
+  pingToast.style.fontWeight = "600";
+  pingToast.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+  pingToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  pingToast.style.opacity = "0";
+  pingToast.style.zIndex = "9999";
+  document.body.appendChild(pingToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    pingBuf += char;
+
+    if (pingBuf.length > 5) {
+      pingBuf = pingBuf.slice(-5);
+    }
+
+    if (pingBuf.endsWith("b") || pingBuf.endsWith("j")) {
+      pingToast.style.bottom = "40px";
+      pingToast.style.opacity = "1";
+      setTimeout(() => {
+        pingToast.style.bottom = "-50px";
+        pingToast.style.opacity = "0";
+      }, 2000);
+      pingBuf = "";
+    }
+  });
+})();
+
+(() => {
+  let pingBuf = "";
+
+  const pingToast = document.createElement("div");
+  pingToast.textContent = "aw don't be too sad oh i think i should said to myself silly me";
+  pingToast.style.position = "fixed";
+  pingToast.style.bottom = "-50px";
+  pingToast.style.left = "50%";
+  pingToast.style.transform = "translateX(-50%)";
+  pingToast.style.backgroundColor = "rgba(14, 165, 233, 0.9)";
+  pingToast.style.color = "#fff";
+  pingToast.style.padding = "10px 20px";
+  pingToast.style.borderRadius = "9999px";
+  pingToast.style.fontSize = "14px";
+  pingToast.style.fontWeight = "600";
+  pingToast.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+  pingToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  pingToast.style.opacity = "0";
+  pingToast.style.zIndex = "9999";
+  document.body.appendChild(pingToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    pingBuf += char;
+
+    if (pingBuf.length > 5) {
+      pingBuf = pingBuf.slice(-5);
+    }
+
+    if (pingBuf.endsWith("sad") || pingBuf.endsWith("bad") || pingBuf.endsWith("help") || pingBuf.endsWith("why")) {
+      pingToast.style.bottom = "40px";
+      pingToast.style.opacity = "1";
+      setTimeout(() => {
+        pingToast.style.bottom = "-50px";
+        pingToast.style.opacity = "0";
+      }, 2000);
+      pingBuf = "";
+    }
+  });
+})();
+
+
+
+(() => {
+  let pingBuf = "";
+
+  const pingToast = document.createElement("div");
+  pingToast.textContent = "don't worries i think i also";
+  pingToast.style.position = "fixed";
+  pingToast.style.bottom = "-50px";
+  pingToast.style.left = "50%";
+  pingToast.style.transform = "translateX(-50%)";
+  pingToast.style.backgroundColor = "rgba(14, 165, 233, 0.9)";
+  pingToast.style.color = "#fff";
+  pingToast.style.padding = "10px 20px";
+  pingToast.style.borderRadius = "9999px";
+  pingToast.style.fontSize = "14px";
+  pingToast.style.fontWeight = "600";
+  pingToast.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+  pingToast.style.transition = "bottom 0.5s ease, opacity 0.5s ease";
+  pingToast.style.opacity = "0";
+  pingToast.style.zIndex = "9999";
+  document.body.appendChild(pingToast);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key.length !== 1) return;
+    
+    const char = e.key.toLowerCase();
+    pingBuf += char;
+
+    if (pingBuf.length > 20) {
+      pingBuf = pingBuf.slice(-5);
+    }
+
+    if (pingBuf.endsWith("ifyoutypethisrandomllyyouprobneedsomehelpalso") || pingBuf.endsWith("needhelp?")) {
+      pingToast.style.bottom = "40px";
+      pingToast.style.opacity = "1";
+      setTimeout(() => {
+        pingToast.style.bottom = "-50px";
+        pingToast.style.opacity = "0";
+      }, 2000);
+      pingBuf = "";
+    }
+  });
+})();
+
+
         </script>
 
 
