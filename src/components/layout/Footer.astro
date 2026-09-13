@@ -20,7 +20,6 @@ const bottomLinks = [
       },
     ],
   },
-
   {
     header: 'Company',
     links: [
@@ -56,13 +55,14 @@ const bottomLinks = [
       },
     ],
   },
-    {
+  {
     header: 'Projects',
     links: [
       {
         name: 'Development Page',
         href: '/Developer',
         isExternal: false,
+        onclick: "return confirm('Are you sure you want to enter the STAGE environment?');",
       },
       {
         name: 'Art',
@@ -86,7 +86,9 @@ const bottomLinks = [
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="flex flex-col justify-between gap-12 sm:gap-16 lg:flex-row">
-<div class="flex max-w-sm flex-col items-start gap-3 sm:gap-4">
+      
+      <!-- Branding -->
+      <div class="flex max-w-sm flex-col items-start gap-3 sm:gap-4">
         <img
           class="h-10 w-auto"
           width="100"
@@ -95,10 +97,7 @@ const bottomLinks = [
           alt="FryrvoStudio, Inc"
         />
 
-
-
-
-<!-- Social Media Icons tings  -->
+        <!-- Social Media Icons tings  -->
         <div class="flex items-center gap-3">
           <a
             href="https://github.com/fryrvo"
@@ -118,7 +117,6 @@ const bottomLinks = [
           >
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10 5.523 0 10-4.477 10-10 0-5.523-4.477-10-10-10zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.436-5.308-1.76-8.785-.964-.335.077-.667-.133-.744-.468-.077-.335.133-.667.468-.744 3.79-.868 7.087-.492 9.774 1.147.295.18.387.562.207.822zm1.225-2.724c-.225.366-.703.48-1.069.255-2.693-1.652-6.801-2.131-9.988-1.166-.412.125-.851-.103-.976-.515-.125-.412.103-.851.515-.976 3.619-1.1 8.136-.554 11.238 1.348.366.225.48.703.255 1.054zm.106-2.842C14.773 8.877 8.57 8.665 5.006 9.747c-.502.153-1.033-.122-1.186-.624-.153-.502.122-1.033.624-1.186 4.053-1.233 11.011-.983 15.253 1.536.452.268.602.855.334 1.307-.268.452-.855.602-1.307.334z"/></svg>
           </a>
-
           <a
             href="https://youtube.com/@fryrvo"
             target="_blank"
@@ -128,7 +126,6 @@ const bottomLinks = [
           >
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           </a>
-        
           <a
             href="https://tech.lgbt/@cath"
             target="_blank"
@@ -140,18 +137,17 @@ const bottomLinks = [
           </a>
         </div>
 
-
-
         <p class="text-primary-950/70 dark:text-primary-200/70 text-base">
           Cath Make this website ^_^
           <br>
           it look great isn't it? well I hope you like it!
         </p>
-        <p class="text-primary-950/70 dark:text-primary-200/70 text-sm">© 2026 <a href="https://fryrvo.com" class="no-underline hover:underline">FryrvoStudio, Inc</a></p>
-      </div>
+        <p class="text-primary-950/70 dark:text-primary-200/70 text-sm">
+          © 2026 <a href="https://fryrvo.com" class="no-underline hover:underline">FryrvoStudio, Inc</a>
+        </p>
+      </div> 
 
-
- <!-- Bottom links -->
+      <!-- Bottom links-->
       <div class="grid max-w-xl flex-1 grid-cols-1 gap-6 sm:grid-cols-4">
         {
           bottomLinks.map((group) => (
@@ -165,6 +161,7 @@ const bottomLinks = [
                       class="focus-visible:outline-primary-950 dark:focus-visible:outline-primary-200 inline-flex items-center gap-1 rounded-md text-sm hover:underline focus-visible:outline focus-visible:outline-2"
                       target={link.isExternal ? '_blank' : undefined}
                       rel={link.isExternal ? 'noopener' : undefined}
+                      onclick={link.onclick}
                     >
                       {link.name}
                       {link.isExternal && (
@@ -186,3 +183,7 @@ const bottomLinks = [
           ))
         }
       </div>
+
+    </div>
+  </div>
+</footer>
