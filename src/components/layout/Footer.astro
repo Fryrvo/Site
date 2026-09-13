@@ -58,12 +58,11 @@ const bottomLinks = [
   {
     header: 'Projects',
     links: [
-      {
-        name: 'Development Page',
-        href: '/Developer',
-        isExternal: false,
-        onclick: "return confirm('Are you sure you want to enter the STAGE environment?');",
-      },
+      // {
+      //   name: 'Development Page',
+      //   href: '/Developer',
+      //   isExternal: false,
+      // },
       {
         name: 'Art',
         href: '/picture',
@@ -90,14 +89,37 @@ const bottomLinks = [
       <!-- Branding -->
       <div class="flex max-w-sm flex-col items-start gap-3 sm:gap-4">
         <img
-          class="h-10 w-auto"
+          id="site-logo"
+          class="h-10 w-auto cursor-pointer"
           width="100"
           height="70"
-          :src="$store.theme.isDark ? 'https://cdn.fryrvo.com/assets/fryrvo_branding/Logo_bg.png' : 'https://cdn.fryrvo.com/assets/fryrvo_branding/Logo_bg.png'"
+          src="https://cdn.fryrvo.com/assets/fryrvo_branding/Logo_bg.png"
           alt="FryrvoStudio, Inc"
         />
 
-        <!-- Social Media Icons tings  -->
+        <script>
+          let clickCount = 0;
+          let lastClickTime = 0;
+
+          const logo = document.getElementById("site-logo");
+          if (logo) {
+            logo.addEventListener("click", (e) => {
+              const now = Date.now();
+              if (now - lastClickTime > 2000) {
+                clickCount = 0;
+              }
+              lastClickTime = now;
+              clickCount++;
+
+              if (clickCount >= 7) {
+                e.preventDefault();
+                window.location.href = "/Developer";
+              }
+            });
+          }
+        </script>
+
+        <!-- Social Media Icons -->
         <div class="flex items-center gap-3">
           <a
             href="https://github.com/fryrvo"
@@ -138,16 +160,16 @@ const bottomLinks = [
         </div>
 
         <p class="text-primary-950/70 dark:text-primary-200/70 text-base">
-          Cath Make this website ^_^
+          Cath Made this website ^_^
           <br>
-          it look great isn't it? well I hope you like it!
+          it looks great doesn't it? Well, I hope you like it!
         </p>
         <p class="text-primary-950/70 dark:text-primary-200/70 text-sm">
           © 2026 <a href="https://fryrvo.com" class="no-underline hover:underline">FryrvoStudio, Inc</a>
         </p>
       </div> 
 
-      <!-- Bottom links-->
+      <!-- Bottom links -->
       <div class="grid max-w-xl flex-1 grid-cols-1 gap-6 sm:grid-cols-4">
         {
           bottomLinks.map((group) => (
@@ -161,7 +183,6 @@ const bottomLinks = [
                       class="focus-visible:outline-primary-950 dark:focus-visible:outline-primary-200 inline-flex items-center gap-1 rounded-md text-sm hover:underline focus-visible:outline focus-visible:outline-2"
                       target={link.isExternal ? '_blank' : undefined}
                       rel={link.isExternal ? 'noopener' : undefined}
-                      onclick={link.onclick}
                     >
                       {link.name}
                       {link.isExternal && (
