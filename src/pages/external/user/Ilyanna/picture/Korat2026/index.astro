@@ -1,0 +1,178 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+const owner = "Fryrvo-Stuff";
+const repo = "Ilyanna-Korat-2026";
+const imagePath = "Img";
+
+const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${imagePath}`;
+const token = import.meta.env.GITHUB_TOKEN;
+const secret = import.meta.env.IMAGE_SECRET_KEY || "";
+
+
+
+async function generateSignature(path: string, secretKey: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secretKey);
+  const msgData = encoder.encode(path);
+
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    keyData,
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const signatureBuffer = await crypto.subtle.sign("HMAC", cryptoKey, msgData);
+  const hashArray = Array.from(new Uint8Array(signatureBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+let imageUrls: string[] = [];
+
+try {
+  const response = await fetch(apiUrl, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      "User-Agent": "Astro-App",
+    },
+  });
+
+  if (response.ok) {
+    const files = await response.json();
+    
+
+    for (const file of files) {
+      if (file.type === "file" && /\.(jpg|jpeg|png|webp)$/i.test(file.name)) {
+        const fullFilePath = `${imagePath}/${file.name}`;
+        const sig = await generateSignature(fullFilePath, secret);
+        imageUrls.push(`/api/image/${owner}/${repo}/${fullFilePath}?sig=${sig}`);
+      }
+    }
+  }
+} catch (error) {
+  console.error("Error connecting to GitHub API:", error);
+}
+---
+
+<Layout title="Fryrvo Photo Gallery" description="laylai's Photo Gallery">
+  <section class="justified-gallery" id="photoswipe">
+    {
+      imageUrls.map((url, index) => (
+        <a href={url} target="_blank" data-fancybox="gallery">
+          <img
+            src={url}
+            alt="Gallery Photo"
+            height="400"
+            loading={index < 20 ? "eager" : "lazy"}
+          />
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+
+
+
+
+
+
+
+
+<Layout title="Astro Photo Grid" description="A minimal, single-page photo gallery for Astro.">
+  <section class="justified-gallery" id="photoswipe">
+    {
+      imageUrls.map((url, index) => (
+        <a href={url} target="_blank" data-fancybox="gallery">
+          <img
+            src={url}
+            alt="Gallery Photo"
+            height="400"
+            loading={index < 20 ? "eager" : "lazy"}
+          />
+        </a>
+      ))
+    }
+  </section>
+</Layout>
+
+<script>
+  import { Fancybox } from "@fancyapps/ui";
+
+  const initFancybox = () => {
+    Fancybox.bind("[data-fancybox]", {
+      theme: "auto",
+      mainStyle: {
+        "--f-button-width": "44px",
+        "--f-button-height": "44px",
+        "--f-button-border-radius": "50%",
+        "--f-toolbar-padding": "16px",
+      },
+      Carousel: {
+        Arrows: false,
+        Toolbar: {
+          display: {
+            left: [],
+            middle: [],
+            right: ["close"],
+          },
+        },
+        transition: "slide",
+      },
+    });
+  };
+
+  initFancybox();
+  document.addEventListener("astro:page-load", initFancybox);
+</script>
+
+<style>
+  .justified-gallery {
+    --padding: max(2.5vw, 12px);
+    --space: max(2.5vw, 12px);
+    --min-height: clamp(200px, 20vw, 400px);
+
+    padding: var(--padding);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+
+    a {
+      flex-grow: 1;
+      flex-basis: 300px;
+      height: var(--min-height);
+      overflow: hidden;
+      opacity: 1;
+      transition: all 0.05s ease-in-out;
+    }
+
+    a img {
+      display: block;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--outline);
+      outline-offset: 2px;
+      transform: scale(1.05);
+      z-index: 1;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    a.hidden {
+      transition: opacity 0.4s ease-in-out;
+      opacity: 0;
+    }
+
+    &::after {
+      content: " ";
+      flex-grow: 1000000000;
+    }
+  }
+</style>
