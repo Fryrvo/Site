@@ -26,4 +26,4 @@ pnpm-debug.log*
 .vscode
 
 # testing stuff
-src/pages/Developer/test/dev/
+src/pages/stage/test/dev/

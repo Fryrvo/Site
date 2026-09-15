@@ -6,7 +6,7 @@ cover: "https://cdn.fryrvo.com/assets/fryrvomusic/cover/StarSONGCOVER.jpg"
 quote: "Notting Build last forever eventually they Must Die even greatest star must die one day"
 spotify: ""
 apple: ""
-youtube: "https://www.youtube.com/playlist?list=OLAK5uy_mxIA0CVcVNua6Be2XWnCLpbspTUp8kA_E"
+youtube: ""
 ---
 
 

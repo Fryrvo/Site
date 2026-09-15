@@ -11,7 +11,7 @@ const galleryConfig = userGalleries && slug ? userGalleries[slug] : undefined;
 
 
 if (!galleryConfig) {
-  return Astro.redirect("/Developer/404");
+  return Astro.redirect("/stage/404");
 }
 
 const { owner, repo, imagePath, title, description } = galleryConfig;
