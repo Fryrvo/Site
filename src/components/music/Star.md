@@ -4,9 +4,9 @@ type: "Single" # or "Album", "EP"
 date: "2026-06-16"
 cover: "https://cdn.fryrvo.com/assets/fryrvomusic/cover/StarSONGCOVER.jpg"
 quote: "Notting Build last forever eventually they Must Die even greatest star must die one day"
-spotify: ""
-apple: ""
-youtube: ""
+spotify: "https://open.spotify.com/track/21h9ghL9pMNubt9kNY2JcA"
+apple: "https://music.apple.com/us/album/star-single/6780928706"
+youtube: "https://music.youtube.com/watch?v=tA9Kk33Ftfg"
 ---
 
 
