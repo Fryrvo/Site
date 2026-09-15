@@ -3,6 +3,7 @@ export interface Props {
   item?: Record<string, any>;
 }
 
+
 const { item } = Astro.props;
 
 const defaultSchema = {
@@ -12,6 +13,7 @@ const defaultSchema = {
       "@type": "WebSite",
       "@id": "https://fryrvo.com/#website",
       "url": "https://fryrvo.com",
+      "image": "https://cdn.fryrvo.com/assets/fryrvo_branding/Fryrvo_nobg.png",
       "name": "Fryrvo",
       "alternateName": ["FryrvoStudio"],
       "publisher": {
@@ -43,7 +45,11 @@ const defaultSchema = {
         "@type": "Organization",
         "@id": "https://www.google.com/search?kgmid=/g/11z92vdtkw",
         "name": "FryrvoStudio",
-        "sameAs": "https://www.google.com/search?kgmid=/g/11z92vdtkw"
+        "image": "https://cdn.fryrvo.com/assets/fryrvo_branding/Logo_bg.png",
+        "sameAs": [
+         "https://www.google.com/search?kgmid=/g/11z92vdtkw",
+         "https://github.com/FryrvoStudio"
+         ]
       }
     },
     {
