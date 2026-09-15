@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "../../images/*.{jpg,jpeg,png,webp}",
+  "../../images2/*.{jpg,jpeg,png,webp}",
 );
 ---
 
@@ -15,9 +15,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 <section class="py-12 sm:py-16">
   <div class="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="flex flex-col gap-3 sm:gap-5">
-      <h1 class="text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">Galleries</h1>
+      <h1 class="text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">Picture</h1>
       <p class="text-primary-950/70 dark:text-primary-200/70 mx-auto max-w-xl text-base sm:text-lg">
-        drawing and picture of stuff i do 
+        stuff 
       </p>
     </div>
   </div>
